@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Practice JavaScript</h1>
+
+  <div class="card-deck">
+    <div class="card" style="padding: .3em">
+      <h3 class="card-title">Displaying array with JS and adding Bootstrap classes:</h3>
+      <div class="code-box">
+        <pre>
+          <code>
+    let mainArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    function displayMainArray() {
+      const mainDiv = document.getElementById('main')
+      mainDiv.innerHTML = `&lt;ul id="list"&gt;&lt;/ul&gt;`
+
+      mainArray.map(item => {
+        const listItem = `&lt;li id="list-item"&gt;${item}&lt;/li&gt;`
+        mainDiv.children[0].innerHTML += listItem
+      })
+    }
+
+    function addBootStrapClassesToListItems() {
+      const list = document.getElementById('list')
+      list.classList.add("list-group")
+      list.classList.add("list-group-flush")
+
+      for (let index = 0; index < list.children.length; index++) {
+        const element = list.children[index];
+        element.classList.add("list-group-item")
+      }
+    }
+          </code>
+        </pre>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Result:</h5>
+        <div class="main" id="main"></div>
+      </div>
+    </div>
+
+    <div class="card" style="padding: .3em">
+      <h3 class="card-title">To-Do list with JS</h3>
+      <div class="code-box">
+        <pre>
+          <code>
+    const formContainer = document.getElementById('todo')
+
+    function setupTodoForm() {
+      formContainer.innerHTML = 
+      `&lt;ul id="todo-list"&gt;
+      &lt;/ul&gt;
+      &lt;form&gt;
+      &lt;input type="text" id="todo-text"&gt;
+      &lt;button onClick="createTodo(event)">Add&lt;/button&gt;
+      &lt;/form&gt;`
+    }
+
+    function addBootStrapToTodos() {
+      const todoList = formContainer.children[0]
+      todoList.classList.add('list-group')
+      todoList.classList.add('list-group-flush')
+    
+      for (let index = 0; index < todoList.length; index++) {
+        const element = todoList[index];
+        element.classList.add('list-group-item')
+      }
+    }
+
+    function createTodo(e) {
+      e.preventDefault()
+      const todoList = formContainer.children[0]
+      const todoText = document.getElementById('todo-text')
+      
+      todoList.innerHTML += 
+      `&lt;li
+      &lt;input type="checkbox" style="margin-right: .4em" 
+      onClick="completeTodo(this, event)"&gt;
+      ${todoText.value}&lt;/li&gt;`
+      todoText.value = ''
+    }
+
+    function completeTodo(t, e) {
+      const doneList = document.getElementById('done')
+      const todoText = e.currentTarget.parentNode
+      if (t.checked) {
+        todoText.remove()
+      }
+    }
+          </code>
+        </pre>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Result:</h5>
+        <div class="todo" id="todo"></div>
+      </div>
+    </div>
+
+    <div class="card" style="padding: .3em">
+      <h3 class="card-title">JS Clock</h3>
+      <div class="code-box">
+        <pre>
+          <code>
+    function displayTime() {
+      let clock = document.getElementById('clock-container')
+    
+      let timeNow = new Date()
+    
+      let hours = timeNow.getHours()
+      let mins = timeNow.getMinutes()
+      let seconds = timeNow.getSeconds()
+      let amPm = 'AM'
+
+      if (hours >= 6 && hours <= 19) {
+        clock.classList.remove('night')
+        clock.classList.add('day')
+      } else {
+        clock.classList.remove('day')
+        clock.classList.add('night')
+      }
+    
+      if (hours >= 12) {
+        amPm = 'PM'
+      }
+    
+      if (hours > 12) {
+        hours = hours - 12
+      }
+    
+      if (mins < 10) {
+        mins = `0${mins}`
+      }
+    
+      if (seconds < 10) {
+        seconds = `0${seconds}`
+      }
+    
+      let clockFace = hours + ':' + mins + ':' + seconds + amPm
+    
+      clock.innerText = clockFace
+    }
+    
+    setInterval( displayTime, 1000 )
+          </code>
+        </pre>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Result:</h5>
+        <div class="clock-container" id="clock-container"></div>
+      </div>
+    </div>
+
+    <div class="card" style="padding: .3em">
+      <h3 class="card-title">JS Tip Calc</h3>
+      <div class="code-box">
+        <pre>
+          <code>
+    const tipFormContainer = document.getElementById('tip-container')
+    const tipPerc = [5, 10, 15, 20, 25]
+    
+    function createTipForm() {
+      tipFormContainer.innerHTML = 
+      `&lt;label&gt;How much was the bill?&lt;/label&gt;
+      &lt;input type="number" id="bill"&gt;
+      &lt;label&gt;Tip Amount?&lt;/label&gt;
+      &lt;select id="tip-amount"&gt;&lt;/select&gt;
+      &lt;p id="tip-total">&lt;/p&gt;
+      &lt;button onClick="calcTipAmount()"&gt;Calc Tip&lt;/button&gt;
+      `
+      const tipAmount = document.getElementById('tip-amount')
+      for (let index = 0; index < tipPerc.length; index++) {
+        const element = tipPerc[index];
+        tipAmount.innerHTML += 
+        `&lt;option value=${element}&gt;${element}&lt;/option&gt;`
+      }
+    }
+    
+    function calcTipAmount() {
+      const tip = document.getElementById('tip-amount').value
+      const bill = document.getElementById('bill').value
+      const tipTotal = document.getElementById('tip-total')
+    
+      tipTotal.innerHTML = '$' + Math.round((tip / 100 * bill) * 100) / 100
+      console.log(bill)
+    }
+          </code>
+        </pre>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Result:</h5>
+        <div class="tip-container" id="tip-container"></div>
+      </div>
+    </div>
+
+    <div class="card" style="padding: .3em">
+      <h3 class="card-title">JS Animated Navigation</h3>
+      <div class="code-box">
+        <pre>
+          <code>
+    const navContainer = document.getElementById('nav-container')
+    let navlinks = ["Home", "Dashboard", "Settings"]
+    
+    function createNavBar() {
+      navContainer.innerHTML =
+      `&lt;div class="navbar-container"&gt;
+      &lt;div class="logo"&gt;
+      &lt;h1>AnimatedNav&lt;/h1&gt;
+      &lt;/div&gt;
+      &lt;div class="nav-link-container"&gt;
+      &lt;i class="fas fa-bars" onClick="showNavLinksList()"&gt;&lt;/i&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="nav-links-container hidden transform"&gt;
+      &lt;ul class="nav-links"&gt;&lt;/ul&gt;
+      &lt;/div&gt;`
+    }
+    
+    function addNavLinks() {
+      const navList = document.querySelector('.nav-links')
+      navlinks.map(item => {
+        navList.innerHTML += `&lt;li&gt;${item}&lt;/li&gt;`
+      })
+    }
+    
+    function showNavLinksList() {
+      const navList = document.querySelector('.nav-links-container')
+    
+      if (navList.classList.contains('hidden')) {
+        navList.classList.remove('hidden')
+        navList.classList.add('show')
+      } else {
+        navList.classList.remove('show')
+        navList.classList.add('hidden')
+      }
+    }
+          </code>
+        </pre>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Result:</h5>
+        <div class="nav-container" id="nav-container"></div>
+      </div>
+    </div>
+
+    <div class="card" style="padding: .3em">
+      <h3 class="card-title">JS Quiz</h3>
+      <div class="code-box">
+        <pre>
+          <code>
+    const quiz = document.getElementById('quiz-container')
+    let correctAnswer = ''
+    let choice = ''
+    let correct = 0
+    let incorrect = 0
+    let position = 0
+    
+    function startQuiz() {
+      if (questions[position] == undefined) {
+        let totalQuestions = correct + incorrect
+        quiz.innerHTML = `
+        &lt;h3&gt;End of quiz&lt;/h3&gt;
+        &lt;p&gt;
+        You had ${correct} correct answers out of 
+        ${totalQuestions} questions
+        &lt;/p&gt;
+        &lt;p&gt;
+        You scored ${Math.round((correct / totalQuestions) * 100)}%
+        `
+        return
+      }
+    
+      correctAnswer = questions[position].answer
+    
+      quiz.innerHTML = `
+      &lt;h3&gt;${questions[position].question}&lt;/h3&gt;
+      &lt;div id="answers"&gt;&lt;/div&gt;
+      `
+      questions[position].possibleAnswers.map(a => {
+        quiz.innerHTML += 
+        `&lt;p class="answer" onClick="select(this)"&gt;${a}&lt;/p&gt;`
+      })
+    
+      quiz.innerHTML += `
+      &lt;button class="next" onClick="checkAnswerNextQuestion(event)"&gt;
+      Submit&lt;/button&gt;
+      `
+    }
+    
+    function select(t) {
+      choice = t.innerText
+      let choiceElements = document.querySelectorAll(".answer")
+      
+      for (let index = 0; index < choiceElements.length; index++) {
+        const element = choiceElements[index];
+    
+        if (element.classList.contains("selected")) {
+          element.classList.remove("selected")
+        }
+    
+        if (element.innerText === choice) {
+          element.classList.add("selected")
+        }
+      }
+    }
+    
+    function checkAnswerNextQuestion(e) {
+      e.preventDefault()
+    
+      if (choice === correctAnswer) {
+        window.alert("Correct!!")
+        ++correct
+        ++position
+        startQuiz()
+      } else {
+        window.alert("Wrong!!")
+        ++incorrect
+        ++position
+        startQuiz()
+      }
+    }
+          </code>
+        </pre>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Result:</h5>
+        <div class="quiz-container" id="quiz-container"></div>
+      </div>
+    </div>
+
+    <div class="card" style="padding: .3em">
+      <h3 class="card-title">JS 7 Day Weather Forcast</h3>
+      <div class="code-box">
+        <pre>
+          <code>
+    let loading = false
+    let latt = 35.045631
+    let lon = -85.309677
+    
+    const wContainer = document.getElementById('weather-container')
+    let sevenDayWeather = ''
+    let weatherTable = ''
+    async function getWeatherJson() {
+      let WEATHER_API = 
+      `http://www.7timer.info/bin/api.pl?
+      lon=${lon}&lat=${latt}&product=civillight&output=json`
+      loading = true
+    
+      fetch(WEATHER_API)
+      .then(res => res.json())
+      .then(data => 
+        {
+          sevenDayWeather = data.dataseries
+          wContainer.innerHTML = `
+          &lt;label for="lon"&gt;Longitude&lt;/label&gt;
+          &lt;input type="text" id="lon"&gt;
+          &lt;label for="latt"&gt;Lattitude&lt;/label&gt;
+          &lt;input type="text" id="latt"&gt;
+          &lt;button onClick="updateLocation(event)"&gt;Submit&lt;/button&gt;
+          <br>
+          &lt;p&gt;Current Location: &lt;strong&gt;${latt}, ${lon}&lt;/strong&gt;&lt;/p&gt;
+          &lt;div id="weather-table"&gt;
+          &lt;div class="spinner-border" role="status"&gt;
+          &lt;span class="sr-only"&gt;Loading...&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;/div&gt;
+          `
+    
+          weatherTable = document.getElementById('weather-table')
+        })
+        .then(() => {
+          sevenDayWeather.forEach(element => {
+            const maxTemp = element.temp2m.max
+            const minTemp = element.temp2m.min
+            const m = JSON.stringify(element.date).slice(4, 6)
+            const d = JSON.stringify(element.date).slice(6)
+    
+            let precImg = ''
+    
+            function getImg() {
+              switch (element.weather) {
+                case 'clear':
+                  precImg = "./assets/about_civil_clear.png"
+                  break;
+    
+                  case 'cloudy':
+                    precImg = "./assets/about_civil_cloudy.png"
+                    break;
+    
+                case 'pcloudy':
+                  precImg = "./assets/about_civil_pcloudy.png"
+                  break;
+    
+                case 'lightrain':
+                  precImg = "./assets/about_civil_lightrain.png"
+                  break;
+    
+                case 'ishower':
+                  precImg = "./assets/about_civil_ishower.png"
+                  break;
+    
+                case 'fog':
+                  precImg = "./assets/about_civil_fog.png"
+                  break;
+    
+                case 'lightsnow':
+                  precImg = "./assets/about_civil_lightsnow.png"
+                  break;
+    
+                case 'mcloudy':
+                  precImg = "./assets/about_civil_mcloudy.png"
+                  break;
+    
+                case 'oshower':
+                  precImg = "./assets/about_civil_oshower.png"
+                  break;
+    
+                case 'rain':
+                  precImg = "./assets/about_civil_rain.png"
+                  break;
+    
+                case 'rainsnow':
+                  precImg = "./assets/about_civil_rainsnow.png"
+                  break;
+    
+                case 'snow':
+                  precImg = "./assets/about_civil_snow.png"
+                  break;
+    
+                case 'tsrain':
+                  precImg = "/.assets/about_civil_tsrain.png"
+                  break;
+    
+                case 'tstorm':
+                  precImg = "./assets/about_civil_tstorm.png"
+                  break;
+    
+                case 'rain':
+                  precImg = "./assets/about_civil_rain.png"
+                  break;
+    
+                default:
+                  break;
+              }
+            }
+    
+            getImg()
+    
+            weatherTable.innerHTML.remove
+            loading = false
+            weatherTable.innerHTML += `
+            &lt;div class="data"&gt;
+            &lt;div class="data-set"&gt;
+            &lt;span&gt;${m}/${d}&lt;/span&gt;
+            &lt;img src=${precImg}&gt;
+            &lt;div class="high-low"&gt;
+            &lt;span&gt;High Low&lt;/span&gt;
+            &lt;span&gt;
+            ${Math.round(
+              maxTemp * 9/5) + 32}&#176; / ${Math.round(minTemp * 9/5) + 32}&#176;
+            &lt;/span&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;
+            `
+          });
+        })
+      .catch(error => console.error(error))
+    }
+    
+    getWeatherJson()
+    
+    async function updateLocation(e) {
+      e.preventDefault()
+      loading = true
+      weatherTable.innerHTML.remove
+      weatherTable.innerHTML = `
+      &lt;div id="weather-table"&gt;
+      &lt;div class="spinner-border" role="status"&gt;
+      &lt;span class="sr-only"&gt;Loading...&lt;/span&gt;
+      &lt;/div&gt;
+      `
+      const lattitude = document.getElementById('latt').value
+      const longitude = document.getElementById('lon').value
+    
+      latt = lattitude
+      lon = longitude
+    
+      await getWeatherJson()
+    }
+          </code>
+        </pre>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Result:</h5>
+        <div class="weather-container" id="weather-container"></div>
+      </div>
+    </div>
+
+  </div>
+  
+  <script src="script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js?height=650px" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
