@@ -490,3 +490,37 @@ function isIsogram(e){
     <button onClick="isIsogram(event)">Check</button>
 `
   }
+
+  // COUNT THE VOWELS
+  const vowelsDiv = document.getElementById('vowels-container');
+  vowelsDiv.innerHTML = `
+    <label>Enter text to see how may vowels</label>
+    <input id="vowelStr" type="text"></input>
+    <button onClick="countVowels(event)">Count</button>
+  `
+  function countVowels(e) {
+    const str = document.getElementById('vowelStr').value;
+
+    let vowelsCount = 0;
+
+    const vowels = ['a', 'e', 'i', 'o', 'u'];
+    for (let i = 0; i < str.length; i++) {
+        if (vowels.includes(str[i])) {
+            vowelsCount++
+        }
+    }
+
+    vowelsDiv.innerHTML = `
+        There are ${vowelsCount} vowels!!!
+        <button onClick="resetVowel(event)">Reset</button>
+    `
+  }
+
+  function resetVowel(e) {
+      e.preventDefault();
+    vowelsDiv.innerHTML = `
+        <label>Enter text to see how may vowels</label>
+        <input id="vowelStr" type="text"></input>
+        <button onClick="countVowels(event)">Count</button>
+    `
+  }
