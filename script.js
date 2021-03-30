@@ -447,3 +447,46 @@ async function updateLocation(e) {
 
   await getWeatherJson()
 }
+
+// IS STRING AN ISOGRAM ?
+const isIsoDiv = document.getElementById('isIso-container');
+isIsoDiv.innerHTML += `
+    <label>Enter word to see if it's an isogram</label>
+    <input type="text" id="iso"></input>
+    <button onClick="isIsogram(event)">Check</button>
+`
+function isIsogram(e){
+    e.preventDefault();
+    const str = document.getElementById('iso').value.toLowerCase();
+    let same = 0;
+    
+    for (let i = 0; i < str.length; i++) {
+        for (let j = 0; j < str.length; j++) {
+            value1 = str[i].toLowerCase();
+            value2 = str[j].toLowerCase();
+
+            if (value1 < value2 || value1 > value2 || i === j) {
+                continue;
+            } else {
+                same++
+            }
+        }
+    }
+    
+    const isIso = same > 0 ? false : true;
+
+    if (isIso) {
+        isIsoDiv.innerHTML = `It's an ISOGRAM <button onClick="restIso(event)">Try again</button>`;
+    } else {
+        isIsoDiv.innerHTML = `Not an ISOGRAM <button onClick="restIso(event)">Try again</button>`;
+    }
+  }
+
+  function restIso(e) {
+    e.preventDefault();
+    isIsoDiv.innerHTML = `
+    <label>Enter word to see if it's an isogram</label>
+    <input type="text" id="iso"></input>
+    <button onClick="isIsogram(event)">Check</button>
+`
+  }

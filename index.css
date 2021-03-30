@@ -16,6 +16,8 @@ button:hover {
   /* padding: 1em; */
   background-color: #1e1e1e !important;
   color: #fff !important;
+  max-height: 400px;
+  overflow-y: scroll;
 }
 
 .card {
@@ -51,6 +53,8 @@ code {
   font-size: 38px;
   font-weight: 700;
   display: flex;
+  justify-content: center;
+  align-items: center;
   height: 80%;
   border: 1px solid #1e1e1e;
   box-shadow: 1px 1px 5px 5px black;
@@ -60,7 +64,7 @@ code {
   background-image: url(./assets/moon.jpg);
   background-position: center;
   background-size: cover;
-  color: rgb(190, 54, 161);
+  color: rgb(214, 23, 173);
 }
 
 .day {
@@ -166,6 +170,7 @@ code {
 .data {
   display: flex;
   flex-wrap: nowrap;
+  width: 100px;
 }
 
 .data-set {
@@ -177,6 +182,11 @@ code {
   border: 1px solid #1e1e1e;
   padding: .3em;
   margin: .1em;
+}
+
+.data-set img {
+    width: 50px;
+    height: auto;
 }
 
 .high-low {

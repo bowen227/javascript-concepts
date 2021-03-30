@@ -13,7 +13,7 @@
 
   <div class="card-deck">
     <div class="card" style="padding: .3em">
-      <h3 class="card-title">Displaying array with JS and adding Bootstrap classes:</h3>
+      <h3 class="card-title">Displaying array with JS</h3>
       <div class="code-box">
         <pre>
           <code>
@@ -504,6 +504,48 @@
         <div class="weather-container" id="weather-container"></div>
       </div>
     </div>
+
+    <div class="card" style="padding: .3em">
+        <h3 class="card-title">Is word Isogram?</h3>
+        <div class="code-box">
+          <pre>
+            <code>
+    function isIsogram(e){
+        e.preventDefault();
+        const str = document.getElementById('iso').value.toLowerCase();
+        let same = 0;
+        
+        for (let i = 0; i < str.length; i++) {
+            for (let j = 0; j < str.length; j++) {
+                value1 = str[i].toLowerCase();
+                value2 = str[j].toLowerCase();
+    
+                if (value1 < value2 || value1 > value2 || i === j) {
+                    continue;
+                } else {
+                    same++
+                }
+            }
+        }
+        
+        const isIso = same > 0 ? false : true;
+    
+        if (isIso) {
+            isIsoDiv.innerHTML = `It's an ISOGRAM 
+            &lt;button onClick="restIso(event)"&gt;Try again&lt;/button&gt;`;
+        } else {
+            isIsoDiv.innerHTML = `Not an ISOGRAM 
+            &lt;button onClick="restIso(event)"&gt;Try again&lt;/button&gt;`;
+        }
+        }
+            </code>
+          </pre>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Result:</h5>
+          <div class="isIso-container" id="isIso-container"></div>
+        </div>
+      </div>
 
   </div>
   
