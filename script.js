@@ -524,3 +524,30 @@ function isIsogram(e){
         <button onClick="countVowels(event)">Count</button>
     `
   }
+
+  // CHECK STRING TO SEE IF IT'S A PANGRAM (CONTAINS ALL LETTERS OF THE ALPHABET AT LEAST ONCE)
+  const alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+  function isPangram(string) {
+    const pan = string.toLowerCase().replace(/[^a-z]/g, '')
+    if (pan.length < 26) {
+        console.log("Can't be");
+    } else {
+        let count = 0;
+        for (let i = 0; i < alpha.length; i++) {
+            const letter = alpha[i];
+            if (pan.includes(letter)) {
+                count++
+            }
+        }
+        console.log(count);
+    }
+  }
+
+  isPangram('This is not a pangram.');
+  isPangram('The quick brown fox jumps over the lazy dog.');
+
+  // BETTER WAY FOR PANGRAM
+  function isPangram1(string) {
+    const s = string.toLowerCase();
+    return 'abcdefghijklmnopqrstuvwxyz'.split('').every(x => s.indexOf(x) !== -1);
+  }
